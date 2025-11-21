@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Toko Online — AS Profesional</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a class="brand" href="#">
+                <div class="logo"></div>
+                <div>
+                <div style="font-weight:700">Abqory Store</div>
+                    <div style="font-size:10px;color:var(--muted)">Platform profesional</div>
+                </div>
+            </a>      
+            
+          <div class="actions">
+                <div class="cart" title="Keranjang" onclick="openCartModal()">
+    <div class="cart-icon">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+            <path d="M6 6h15l-1.5 9h-12L6 6z" stroke="#0d6efd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="20" r="1.6" fill="#0d6efd"/>
+            <circle cx="18" cy="20" r="1.6" fill="#0d6efd"/>
+        </svg>
+        <div class="count" id="cartCount" style="display:none">0</div>
+    </div>
+</div>
+		<div id="authArea">
+                    <button class="btn" onclick="openAuth()">Masuk / Daftar</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid" role="main">
+            <section class="panel" aria-labelledby="products-title">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <div>
+                        <h2 id="products-title" style="margin:0">Produk Unggulan</h2>
+                        <small class="muted">Pilih produk terbaik untuk kebutuhan Anda</small>
+                    </div>
+                    <div class="muted">Demo client-side • Tidak ada back-end</div>
+                </div>
+
+                <div class="controls">
+                    <div class="search" role="search" aria-label="Pencarian produk">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" role="img" aria-label="Cari">
+  <title>Cari</title>
+  <circle cx="11" cy="11" r="7" stroke="#6c757d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M21 21l-4.35-4.35" stroke="#6c757d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
+                        <input id="search" placeholder="Cari produk..." oninput="renderProducts()" />
+                    </div>
+                    <div class="filters">
+                        <select id="sort" onchange="renderProducts()" style="padding:8px;border-radius:8px;border:1px solid #e6eef8;background:#fff">
+                            <option value="popular">Terpopuler</option>
+                            <option value="price-asc">Harga: Rendah ke Tinggi</option>
+                            <option value="price-desc">Harga: Tinggi ke Rendah</option>
+                            <option value="foodstuffs">Kategori: Makanan</option>
+                        </select>
+                        <button class="btn secondary" onclick="resetFilters()">Reset</button>
+                    </div>
+                </div>
+
+                <div id="products" class="products" aria-live="polite"></div>
+
+            </section>
+
+            <aside class="sidebar">
+                <div class="box">
+    <h3>Selamat datang 👋</h3>
+    <p id="welcome" class="muted">Silakan masuk untuk pengalaman belanja terbaik ✨</p>
+</div>
+
+             <!--   <div class="box">
+                    <h3>Ringkasan Keranjang</h3>
+                    <div id="cartSummary" class="muted">Keranjang kosong.</div>
+                    <div style="margin-top:12px;display:flex;gap:8px">
+                        <button class="btn" onclick="checkout()">Checkout</button>
+                        <button class="btn secondary" onclick="clearCart()">Kosongkan</button>
+                    </div>
+                </div> -->
+
+                <div class="box" id="about">
+                    <h3>Tentang</h3>
+                    <p class="muted">Toko online yang rapi, responsif, dan mudah dikembangkan. Sistem autentikasi sederhana (client-side) untuk tujuan demo.</p>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            <small>© 2025 Abqory Store — Demo. Semua fitur autentikasi bersifat lokal dan hanya untuk keperluan pengujian.</small>
+        </footer>
+    </div>
+
+    <!-- Modal: Auth -->
+    <div id="authModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal" role="document">
+            <div class="left">
+                <button class="close-btn" aria-label="Tutup" onclick="closeAuth()">✕</button>
+                <div class="tabs" role="tablist">
+                    <div id="tab-login" class="tab active" role="tab" aria-selected="true" tabindex="0" onclick="switchAuth('login')">Masuk</div>
+                    <div id="tab-register" class="tab" role="tab" aria-selected="false" tabindex="0" onclick="switchAuth('register')">Daftar</div>
+                </div>
+
+                <div id="loginView">
+                    <form onsubmit="event.preventDefault(); doLogin();">
+                        <div>
+                            <label for="loginEmail">Email</label>
+                            <input id="loginEmail" type="email" required />
+                        </div>
+                        <div>
+                            <label for="loginPassword">Kata Sandi</label>
+                            <input id="loginPassword" type="password" required />
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center">
+                            <button class="btn" type="submit">Masuk</button>
+                            <button class="btn secondary" type="button" onclick="switchAuth('register')">Buat Akun</button>
+                        </div>
+                        <div class="muted">Masuk untuk menambahkan produk ke keranjang dan melakukan checkout.</div>
+                    </form>
+                </div>
+
+                <div id="registerView" style="display:none">
+                    <form onsubmit="event.preventDefault(); doRegister();">
+                        <div>
+                            <label for="regName">Nama Lengkap</label>
+                            <input id="regName" type="text" required />
+                        </div>
+                        <div>
+                            <label for="regEmail">Email</label>
+                            <input id="regEmail" type="email" required />
+                        </div>
+                        <div>
+                            <label for="regPassword">Kata Sandi</label>
+                            <input id="regPassword" type="password" minlength="6" required />
+                        </div>
+                        <div>
+                            <label for="regPassword2">Konfirmasi Kata Sandi</label>
+                            <input id="regPassword2" type="password" minlength="6" required />
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center">
+                            <button class="btn" type="submit">Daftar</button>
+                            <button class="btn secondary" type="button" onclick="switchAuth('login')">Sudah punya akun</button>
+                        </div>
+                        <div class="muted">Dengan mendaftar, Anda menyetujui syarat demo ini.</div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="right">
+                <h4 style="margin-top:0">Keunggulan</h4>
+                <ul class="muted" style="padding-left:18px;margin:0">
+                    <li>Pendaftaran cepat</li>
+                    <li>Kelola keranjang</li>
+                    <li>Antarmuka responsif</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Product details simple -->
+    <div id="productModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal" style="max-width:760px;">
+            <div style="display:flex;gap:18px;padding:18px;align-items:flex-start">
+                <div style="flex:1">
+                    <img id="pmImg" src="" alt="" style="width:100%;height:260px;object-fit:cover;border-radius:10px" />
+                </div>
+                <div style="width:360px">
+                    <button class="close-btn" aria-label="Tutup" onclick="closeProduct()">✕</button>
+                    <h3 id="pmTitle" style="margin-top:4px;margin-bottom:6px"></h3>
+                    <div id="pmPrice" class="price" style="margin-bottom:8px"></div>
+                    <p id="pmDesc" class="muted" style="margin-top:0"></p>
+                    <div style="display:flex;gap:8px;margin-top:14px">
+                        <button class="btn" onclick="addToCartFromModal()">Tambah ke Keranjang</button>
+                        <button class="btn secondary" onclick="closeProduct()">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+   
+   <!-- Modal: Cart -->
+<div id="cartModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" style="max-width:500px;padding:0">
+        <div style="padding:18px;flex:1;position:relative">
+            <button class="close-btn" onclick="closeCartModal()">✕</button>
+            <h3 style="margin-top:0">Keranjang Belanja</h3>
+
+            <div id="cartModalContent"></div>
+
+            <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center">
+                <strong>Total:</strong>
+                <strong id="cartTotalPrice">Rp0</strong>
+            </div>
+
+            <button class="btn" style="width:100%;margin-top:15px" onclick="checkoutToWA()">Checkout via WhatsApp</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+   
+    <script src="app.js"></script>
+</body>
+</html>

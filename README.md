@@ -1,1 +1,1 @@
-Proyek "Toko-Online" adalah aplikasi web e-commerce modern yang dibangun menggunakan Laravel untuk backend dan Bootstrap untuk frontend. Fitur-fitur utamanya meliputi manajemen produk untuk administrator, autentikasi pengguna yang aman (registrasi dan login), fungsionalitas keranjang belanja yang dinamis, proses checkout yang efisien, dan antarmuka responsif yang kompatibel dengan berbagai perangkat. Teknologi yang digunakan meliputi PHP 8.x, Laravel 10.x+, HTML5, CSS3, JavaScript, Bootstrap 5, dan MySQL/MariaDB.
+Ora bisa mas hampurane
